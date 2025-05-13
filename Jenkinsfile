@@ -53,6 +53,10 @@ pipeline{
             post {
                 success {
                     echo 'Deployment successful'
+                    sh '''
+                    kubectl get pods
+                    kubectl get services
+                    '''
                 }
                 failure {
                     echo 'Deployment failed'
