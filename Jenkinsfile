@@ -42,7 +42,7 @@ pipeline{
             steps {
                 echo 'Deploying to server'
                 sh 'whoami'
-                sh 'ls -la'
+                sh 'ls -la /root/'
                 sh 'pwd'
                 sh 'export KUBECONFIG=/root/.kube/jenkins.yaml'
                 // sh 'kubectl apply -f deployment.yaml'
