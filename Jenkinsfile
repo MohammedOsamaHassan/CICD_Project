@@ -26,12 +26,9 @@ pipeline{
                 echo 'Pushing image'
                 withCredentials([usernamePassword(credentialsId: 'DockerHubCreditials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh ''' 
-
                     echo $PASSWORD | docker login -u $USERNAME --password-stdin
                     docker push mohamedosama45/cicdproject:latest
-
                     '''
-  
                 }
             }
             post {
@@ -47,13 +44,11 @@ pipeline{
             steps {
                 echo 'Deploying to server'
                 sh '''
-
                 export KUBECONFIG=/root/.kube/jenkins.yaml
                 kubectl config view
-
+                kubectl apply -f deployment.yaml
+                kubectl apply -f service.yaml
                 '''
-                // sh 'kubectl apply -f deployment.yaml'
-                // sh 'kubectl apply -f service.yaml'
             }
             post {
                 success {
