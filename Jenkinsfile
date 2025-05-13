@@ -41,9 +41,10 @@ pipeline{
         stage('deploy') {
             steps {
                 echo 'Deploying to server'
-                sh 'export KUBECONFIG=/root/.kube/jenkins.yaml'
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f service.yaml'
+                // sh 'export KUBECONFIG=/root/.kube/jenkins.yaml'
+                // sh 'kubectl apply -f deployment.yaml'
+                // sh 'kubectl apply -f service.yaml'
+                sh 'kubectl config view'
 
             }
             post {
