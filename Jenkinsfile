@@ -55,7 +55,7 @@ pipeline{
                     echo 'Deployment successful'
                     sh '''
                     export KUBECONFIG=/root/.kube/jenkins.yaml
-                    kubectl get pods
+                    kubectl get pods -o wide
                     kubectl get services
                     '''
                 }
