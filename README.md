@@ -19,7 +19,7 @@ This project demonstrates a complete CI/CD pipeline to deploy a simple Analog Cl
 
 ## 🌍 Live Demo
 
-- **URL**: [http://44.199.241.78:30007](http://44.199.241.78:30007)
+- **URL**: [http://WorkerIP:30007](http://WorkerIP:30007)
 
 ---
 
@@ -45,21 +45,24 @@ analog-clock-cicd/
 │   ├── index.html
 │   └── clock.js
 │
-├── docker/
-│   └── Dockerfile        # Dockerfile for building the app image
+├── Dockerfile        # Dockerfile for building the app image
+│   
 │
-├── jenkins/
-│   └── Jenkinsfile       # Jenkins pipeline script
+├── Jenkinsfile       # Jenkins pipeline script
+│    
 │
-├── k8s/
-│   ├── deployment.yaml   # K8s Deployment manifest
-│   └── service.yaml      # K8s Service manifest
+├── service.yaml      # K8s Service manifest
+|   deployment.yaml   # K8s Deployment manifest
 │
 ├── terraform/
-│   ├── main.tf           # Main Terraform config
-│   ├── network.tf        # VPC and networking
-│   ├── jenkins.tf        # Jenkins EC2 provisioning
-│   └── kubernetes.tf     # K8s infra setup
+│   ├── main.tf                 # Main Terraform config
+│   ├── network.tf              # VPC and networking
+│   ├── jenkinsServer.tf        # Jenkins EC2 provisioning
+|   |── K8s.tf                  # Jenkins EC2 provisioning
+│   ├── security.tf             # Secutity Groups
+│   ├── terraform.tfvars        # Variables values
+|   |── variables.tf            # Terraform variables
+│   └── installTools            # script for install tools on Infrastructure
 │
 ├── diagram.png           # CI/CD architecture image
 ├── Result.png            # Web App screenshot
@@ -115,9 +118,8 @@ Use the `Jenkinsfile` under `/jenkins` to set up the pipeline with the following
 ### Step 4: Docker Commands
 
 ```bash
-docker build -t analog-clock .
-docker tag analog-clock your-dockerhub-username/analog-clock
-docker push your-dockerhub-username/analog-clock
+docker build -t myDockerHub/cicdproject:latest
+docker push  myDockerHub/cicdproject:latest
 ```
 
 ---
@@ -125,8 +127,8 @@ docker push your-dockerhub-username/analog-clock
 ### Step 5: Deploy to Kubernetes
 
 ```bash
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
 ```
 
 Access the app via:
@@ -147,7 +149,7 @@ http://<EC2-IP>:<NodePort>
 
 ## 💻 Technologies Used
 
-- **AWS EC2, VPC**  
+- **AWS EC2, VPC, Security Groups, IGW**  
 - **Terraform**  
 - **Jenkins**  
 - **Docker & Docker Hub**  
@@ -158,11 +160,7 @@ http://<EC2-IP>:<NodePort>
 
 ## 👨‍💻 Author
 
-**Your Name**  
-System Administrator & DevOps Trainee @ ITI
+**Mohamed Osama Hassan**  
+System Administrator & DevOps
 
----
 
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE)

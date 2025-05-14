@@ -10,7 +10,7 @@ pipeline{
         stage('build') {
             steps {
                 echo 'Building image'
-                sh 'docker build -t mohamedosama45/cicdproject:latest .'
+                sh 'docker build -t myDockerHub/cicdproject:latest .'
             }
             post {
                 success {
@@ -27,7 +27,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'DockerHubCreditials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh ''' 
                     echo $PASSWORD | docker login -u $USERNAME --password-stdin
-                    docker push mohamedosama45/cicdproject:latest
+                    docker push myDockerHub/cicdproject:latest
                     '''
                 }
             }
